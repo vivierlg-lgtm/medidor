@@ -1,38 +1,54 @@
 <!DOCTYPE html><html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Medidor Motor 380 V</title>
+<title>Medidor Motor 220 V</title>
 <style>
-:root{--fondo:#E6EBEF;--tinta:#1C2A38;--suave:#5B6B7A;--ok:#2F7D4F;--esp:#C47F00;--mal:#B3261E;--riel:#C9D2DA;--gris:#6E7C89}
+:root{--fondo:#EEF1F7;--tinta:#16213A;--suave:#5E6A82;--borde:#DCE2EE;
+--azul:#2563EB;--naranja:#EA580C;--verde:#16A34A;--violeta:#9333EA;--cian:#0891B2;--rosa:#DB2777;
+--ok:#16A34A;--esp:#D97706;--mal:#DC2626;--gris:#64748B}
 *{box-sizing:border-box}
 body{margin:0;background:var(--fondo);color:var(--tinta);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-main{max-width:480px;margin:0 auto;padding:16px}
-#banda{border-radius:14px;padding:18px;color:#fff;background:var(--gris)}
-#banda h1{margin:0;font-size:1.4rem}
-#banda p{margin:6px 0 0;font-size:.95rem;line-height:1.35}
-.nom{color:var(--suave);font-size:.86rem}
-.val{font-size:2.2rem;font-weight:700;font-variant-numeric:tabular-nums}
-.val small{font-size:1rem;font-weight:500;color:var(--suave);margin-left:3px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-.grid div,.caja,details{background:#fff;border-radius:12px;padding:10px 12px}
-.potencia{margin-top:14px;background:var(--tinta);color:#fff;border-radius:12px;padding:14px 16px}
-.potencia .nom,.potencia small,#cargatxt{color:#B9C6D2;font-size:.85rem}
-.riel{height:10px;background:#3A4A5A;border-radius:5px;margin-top:10px}
-.llen{height:100%;width:0;background:#8FD0A8;border-radius:5px}
-details,.caja{margin-top:14px}
-summary{font-weight:600;cursor:pointer}
-label{display:block;margin-top:12px;font-size:.9rem;color:var(--suave)}
-input{width:100%;margin-top:4px;padding:10px;font-size:1rem;border:1px solid var(--riel);border-radius:8px}
-button{width:100%;margin-top:12px;padding:14px;font-size:1rem;font-weight:600;border:0;border-radius:12px;background:var(--tinta);color:#fff}
-button.sec{background:transparent;color:var(--tinta);border:2px solid var(--tinta)}
-.ayuda{font-size:.8rem;color:var(--suave);line-height:1.4}
-#msg{min-height:1.2em;margin-top:10px;font-size:.9rem;text-align:center}
+main{max-width:520px;margin:0 auto;padding:16px}
+header{background:linear-gradient(135deg,#1E3A8A,#6D28D9);color:#fff;border-radius:20px;padding:18px 18px 16px;box-shadow:0 8px 24px rgba(49,46,129,.25)}
+header .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+header h1{margin:0;font-size:1.15rem;letter-spacing:.2px}
+header .sub{font-size:.8rem;opacity:.8;margin-top:2px}
+#chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.18);font-size:.8rem;font-weight:600;white-space:nowrap}
+#chip i{width:9px;height:9px;border-radius:50%;background:#CBD5E1;display:inline-block}
+#banda{margin-top:14px;border-radius:14px;padding:12px 14px;background:var(--gris);transition:background .3s}
+#banda h2{margin:0;font-size:1.25rem}
+#banda p{margin:4px 0 0;font-size:.88rem;line-height:1.35;opacity:.95}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.card{background:#fff;border-radius:16px;padding:12px 14px;border:1px solid var(--borde);border-top:5px solid var(--c);position:relative;overflow:hidden}
+.card::after{content:"";position:absolute;right:-18px;top:-18px;width:70px;height:70px;border-radius:50%;background:var(--c);opacity:.08}
+.nom{color:var(--suave);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.val{font-size:2rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--c);margin-top:2px}
+.val small{font-size:.95rem;font-weight:600;color:var(--suave);margin-left:3px}
+.potencia{margin-top:12px;border-radius:18px;padding:16px;color:#fff;background:linear-gradient(135deg,#15803D,#0D9488);box-shadow:0 8px 20px rgba(13,148,136,.25)}
+.potencia .nom{color:#D1FAE5}
+.potencia .val{color:#fff;font-size:2.6rem}
+.potencia .val small{color:#D1FAE5}
+#stxt{font-size:.88rem;color:#ECFDF5}
+.ayuda{font-size:.8rem;color:var(--suave);line-height:1.45}
+#nomtxt{margin:12px 2px 0}
+details,.caja{margin-top:12px;background:#fff;border-radius:16px;padding:12px 14px;border:1px solid var(--borde)}
+summary{font-weight:700;cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px}
+summary::-webkit-details-marker{display:none}
+summary b{width:26px;height:26px;border-radius:8px;display:inline-grid;place-items:center;color:#fff;font-size:.85rem;background:var(--c)}
+label{display:block;margin-top:12px;font-size:.88rem;color:var(--suave)}
+input,select{width:100%;margin-top:4px;padding:11px;font-size:1rem;border:1.5px solid var(--borde);border-radius:10px;background:#F8FAFC;color:var(--tinta)}
+input:focus,select:focus{outline:none;border-color:#7C3AED;background:#fff}
+button{width:100%;margin-top:12px;padding:14px;font-size:1rem;font-weight:700;border:0;border-radius:12px;color:#fff;background:linear-gradient(135deg,#2563EB,#7C3AED);cursor:pointer}
+button.sec{background:#fff;color:var(--tinta);border:2px solid var(--borde)}
+button.peligro{background:#fff;color:var(--mal);border:2px solid #FECACA}
+#msg{min-height:1.2em;margin-top:10px;font-size:.9rem;text-align:center;font-weight:600;color:#6D28D9}
 .oculto{display:none}
+#aviso{border-left:5px solid var(--ok)}
 </style></head><body><main>
 
 <form id="login" class="caja oculto">
-<h1 style="margin:0;font-size:1.3rem">Acceso remoto al medidor</h1>
+<header style="margin:-12px -14px 4px;border-radius:16px 16px 0 0"><h1>Acceso remoto al medidor</h1><div class="sub">Motor monofásico 220 V</div></header>
 <label>Código secreto del equipo (lo muestra la OLED)<input id="lid" placeholder="Ej: K7M2QX9TPA" required></label>
-<details style="padding:0;margin-top:8px"><summary class="ayuda">Servidor (solo si usás uno propio)</summary>
+<details style="padding:0;margin-top:8px;border:0"><summary class="ayuda">Servidor (solo si usás uno propio)</summary>
 <label>Servidor<input id="lhost" value="broker.emqx.io"></label>
 <label>Usuario<input id="luser"></label>
 <label>Contraseña<input id="lpass" type="password"></label>
@@ -43,49 +59,51 @@ button.sec{background:transparent;color:var(--tinta);border:2px solid var(--tint
 
 <div id="tablero">
 <section id="aviso" class="caja oculto"></section>
-<section id="banda"><h1 id="tit">Conectando…</h1><p id="det">Esperando datos del medidor</p></section>
+<header>
+ <div class="top"><div><h1>Medidor de motor</h1><div class="sub">Monofásico 220 V · 50 Hz</div></div><span id="chip"><i></i><span id="chiptxt">Conectando</span></span></div>
+ <div id="banda"><h2 id="tit">Conectando…</h2><p id="det">Esperando datos del medidor</p></div>
+</header>
 
 <div class="grid">
-<div><span class="nom">Tensión de línea</span><div class="val" id="vl">--<small>V</small></div></div>
-<div><span class="nom">Corriente</span><div class="val" id="i">--<small>A</small></div></div>
+<div class="card" style="--c:var(--azul)"><span class="nom">Tensión</span><div class="val" id="v">--<small>V</small></div></div>
+<div class="card" style="--c:var(--naranja)"><span class="nom">Corriente</span><div class="val" id="i">--<small>A</small></div></div>
 </div>
+
 <div class="potencia">
-<span class="nom">Potencia activa</span><div class="val" id="p">--<small>kW</small></div>
-<div id="cargatxt">--</div>
-<div class="riel"><div class="llen" id="cargabar"></div></div>
+<span class="nom">Potencia aparente (V × I)</span><div class="val" id="s">--<small>VA</small></div>
+<div id="stxt">Lo que el motor toma de la red: tensión por corriente.</div>
 </div>
+
 <div class="grid">
-<div><span class="nom">P. nominal calculada</span><div class="val" id="pnc">--<small>kW</small></div></div>
-<div><span class="nom">cos φ</span><div class="val" id="fp">--</div></div>
-<div><span class="nom">Tensión de fase</span><div class="val" id="vf">--<small>V</small></div></div>
-<div><span class="nom">Energía</span><div class="val" id="e">--<small>kWh</small></div></div>
+<div class="card" style="--c:var(--rosa)"><span class="nom">Tensión nominal</span><div class="val" style="font-size:1.5rem" id="vn">--<small>V</small></div></div>
+<div class="card" style="--c:var(--esp)"><span class="nom">Alarma de corriente</span><div class="val" style="font-size:1.5rem" id="im">--</div></div>
 </div>
 <p class="ayuda" id="nomtxt"></p>
 
-<details><summary>Datos de la chapa del motor</summary>
-<label>Tensión nominal de línea (V)<input id="cvn" type="number" step="1"></label>
-<label>Corriente nominal (A)<input id="cin" type="number" step="0.1"></label>
-<label>cos φ nominal<input id="ccn" type="number" step="0.01"></label>
+<details style="--c:var(--rosa)"><summary><b>⚙</b>Configuración del motor</summary>
+<label>Tensión nominal (V)<input id="cvn" type="number" step="1"></label>
+<label>Corriente máxima para la alarma (A, 0 = sin alarma)<input id="cim" type="number" step="0.01" min="0"></label>
+<label>Sensor de corriente<select id="cacs"><option value="5">ACS712-5A</option><option value="20">ACS712-20A</option><option value="30">ACS712-30A</option></select></label>
+<p class="ayuda">Si cambiás de sensor, medí el ruido de corriente otra vez.</p>
 <button id="gd">Guardar</button>
 </details>
 
-<details><summary>Calibración</summary>
-<label>Tensión entre L1 y neutro medida con el tester (V)<input id="creal" type="number" step="0.1"></label>
+<details style="--c:var(--azul)"><summary><b>✓</b>Calibración</summary>
+<label>Tensión entre fase y neutro medida con el tester (V)<input id="creal" type="number" step="0.1"></label>
 <button id="cv">Calibrar voltaje</button>
 <button id="cal" class="sec">Medir ruido de corriente (motor parado)</button>
 </details>
 
-<details><summary>Conexión</summary>
+<details style="--c:var(--cian)"><summary><b>⌁</b>Conexión</summary>
 <p class="ayuda" id="conex"></p>
 <button id="wcambiar" class="sec oculto">Cambiar red WiFi</button>
 </details>
 
-<button id="rst" class="sec">Reiniciar energía</button>
 <div id="msg"></div>
 </div>
 </main>
 <script>
-const LOCAL = false;
+const LOCAL = /*MODO_LOCAL*/false;
 const $=id=>document.getElementById(id);
 const num=(id,v)=>{$(id).firstChild.nodeValue=v;};
 const msg=t=>{$('msg').textContent=t;};
@@ -94,24 +112,23 @@ let cargado=false,ultimoRx=0,enviar=()=>msg('Sin conexión.');
 const TXT={
  SIN_TENSION:['var(--gris)','Sin tensión','No se detecta tensión de red en el sensor de voltaje.'],
  DETENIDO:['var(--gris)','Motor detenido','Hay tensión de red, pero el motor no consume corriente.'],
- ARRANQUE:['var(--esp)','Arrancando','En el arranque la corriente puede llegar a 5 a 7 veces la nominal.'],
+ ARRANQUE:['var(--esp)','Arrancando','En el arranque la corriente sube unos segundos por encima de la nominal.'],
  EN_MARCHA:['var(--ok)','Motor en marcha','Tensión y corriente dentro de lo normal.'],
- SOBRECARGA:['var(--mal)','Sobrecarga','La corriente supera en más de 15 % la nominal desde hace 5 segundos.']
+ SOBRECARGA:['var(--mal)','Sobrecorriente','La corriente supera el máximo configurado desde hace 5 segundos.']
 };
 function banda(col,ti,de){$('banda').style.background=col;$('tit').textContent=ti;$('det').textContent=de;}
+function chip(ok,t){$('chip').querySelector('i').style.background=ok?'#4ADE80':'#F87171';$('chiptxt').textContent=t;}
 
 function pinta(d){
-  num('vl',d.vl.toFixed(0));num('i',d.i.toFixed(2));num('p',(d.p/1000).toFixed(2));
-  num('vf',d.vf.toFixed(1));num('e',d.kwh.toFixed(3));num('pnc',(d.pnc/1000).toFixed(2));
-  $('fp').textContent=d.fpv?d.fp.toFixed(2):'--';
-  $('cargabar').style.width=(d.carga>0?Math.min(100,d.carga):0)+'%';
-  $('cargatxt').textContent=d.carga>=0?('Trabaja al '+d.carga.toFixed(0)+' % de su potencia nominal'):'Motor detenido';
-  $('nomtxt').textContent='P. nominal = √3 × '+d.vnom+' V × '+d.inom+' A × '+d.cosn+' = '+(d.pnc/1000).toFixed(2)+' kW (lo que absorbe de la red a plena carga).';
+  num('v',d.v.toFixed(0));num('i',d.i.toFixed(3));num('s',d.s.toFixed(1));num('vn',d.vnom.toFixed(0));
+  $('im').textContent=d.imax>0?d.imax.toFixed(3)+' A':'Apagada';
+  $('nomtxt').textContent='Monofásico: S = V × I. Sensor de corriente: ACS712-'+d.acs+'A.';
   let [col,ti,de]=TXT[d.estado]||TXT.SIN_TENSION;
-  if(d.ten!='OK'){col='var(--mal)';ti='Tensión '+(d.ten=='BAJA'?'baja':'alta');de='La tensión de línea se aleja más de 10 % de '+d.vnom+' V.';}
-  if(d.sati){col='var(--mal)';ti='Corriente fuera de rango';de='Supera lo que mide el ACS712-30A (unos 21 A).';}
+  if(d.ten!='OK'){col='var(--mal)';ti='Tensión '+(d.ten=='BAJA'?'baja':'alta');de='La tensión se aleja más de 10 % de '+d.vnom+' V.';}
+  if(d.sati){col='var(--mal)';ti='Corriente fuera de rango';de='Supera lo que puede medir el ACS712-'+d.acs+'A.';}
   banda(col,ti,de);
-  if(!cargado){$('cvn').value=d.vnom;$('cin').value=d.inom;$('ccn').value=d.cosn;cargado=true;}
+  chip(true,LOCAL?'En línea (local)':'En línea');
+  if(!cargado){$('cvn').value=d.vnom;$('cim').value=d.imax;$('cacs').value=d.acs;cargado=true;}
   $('conex').textContent='Código del equipo: '+d.id+'. Dirección local: '+(d.ip?'http://'+d.ip:'--')+'. Acceso remoto: '+(d.mqtt?'conectado':'sin conexión')+'.';
   if(LOCAL&&location.hostname=='192.168.4.1'&&d.ip){
     $('aviso').classList.remove('oculto');
@@ -122,7 +139,7 @@ function pinta(d){
 if(LOCAL){
   $('wcambiar').classList.remove('oculto');
   enviar=async c=>{try{msg(await(await fetch('/cmd',{method:'POST',body:new URLSearchParams({c})})).text());}catch(e){msg('No se pudo enviar.');}};
-  setInterval(async()=>{try{pinta(await(await fetch('/datos')).json());}catch(e){banda('var(--gris)','Sin conexión con el medidor','Conectate a la misma red WiFi que el medidor.');}},1000);
+  setInterval(async()=>{try{pinta(await(await fetch('/datos')).json());}catch(e){chip(false,'Sin conexión');banda('var(--gris)','Sin conexión con el medidor','Conectate a la misma red WiFi que el medidor.');}},1000);
 }else{
   const guardado=k=>{try{return localStorage.getItem(k)||''}catch(e){return ''}};
   ['lhost','luser','lid'].forEach(k=>{if(guardado(k))$(k).value=guardado(k);});
@@ -149,13 +166,12 @@ if(LOCAL){
     });
     cli.on('error',e=>{$('lmsg').textContent='No se pudo conectar: '+e.message;cli.end(true);});
     enviar=c=>{cli.publish(base+'/cmd',c);msg('Orden enviada…');};
-    setInterval(()=>{if(Date.now()-ultimoRx>15000)banda('var(--gris)','El equipo no responde','El medidor está apagado o sin internet.');},5000);
+    setInterval(()=>{if(Date.now()-ultimoRx>15000){chip(false,'Sin datos');banda('var(--gris)','El equipo no responde','El medidor está apagado o sin internet.');}},5000);
   }
 }
 
-$('gd').onclick=()=>enviar('config:vnom='+$('cvn').value+';inom='+$('cin').value+';cosn='+$('ccn').value);
+$('gd').onclick=()=>enviar('config:vnom='+$('cvn').value+';imax='+($('cim').value||0)+';acs='+$('cacs').value);
 $('cv').onclick=()=>enviar('calv:'+$('creal').value);
 $('cal').onclick=()=>confirm('¿El motor está parado?')&&enviar('calibrar_i');
-$('rst').onclick=()=>confirm('¿Reiniciar la energía acumulada?')&&enviar('reset');
 $('wcambiar').onclick=()=>confirm('El equipo se reinicia para elegir otra red. ¿Seguir?')&&enviar('wifi_reset');
 </script></body></html>
